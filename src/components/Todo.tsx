@@ -6,19 +6,14 @@ import { FilterType, ITodo } from '../models/todo.model';
 import DEFAULT_TODOS from '../data/DEFAULT_TODOS';
 
 function Todo() {
-    const [todos, setTodos] = useState<ITodo[]>(DEFAULT_TODOS);
+    const [todos, setTodos] = useState<ITodo[]>(() => {
+        return localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : DEFAULT_TODOS
+    });
     const [filter, setFilter] = useState<FilterType>('active');
 
-    useLayoutEffect(() => {
-        const storedTodos = localStorage.getItem('todos');
-        if (storedTodos) {
-            setTodos(JSON.parse(storedTodos));
-        }
-    }, []);
-
     useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
+        localStorage.setItem("todos", JSON.stringify(todos))
+    }, [todos])
 
     function filteredTodo(todos: ITodo[], filter: FilterType) {
         if (filter === 'completed') {

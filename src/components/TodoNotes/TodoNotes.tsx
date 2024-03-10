@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { HiPencil } from 'react-icons/hi2';
 import * as style from './TodoNotes.styles';
+import { ITodo } from '../../models/todo.model';
 
-export const TodoNotes = ({ notes }: { notes: string }) => {
+export const TodoNotes = ({ notes, id, isSetTodos }: { notes: string, isSetTodos: any, id: string }) => {
     const [isOpenNote, setIsOpenNote] = useState(false);
     const [write, setWrite] = useState(notes);
     const [note, setNote] = useState(notes);
@@ -17,6 +18,11 @@ export const TodoNotes = ({ notes }: { notes: string }) => {
 
     const handleSaveNote = () => {
         setNote(write);
+        isSetTodos((prevTodos: ITodo[]) => 
+            prevTodos.map((todo) => {
+                return todo.id === id ? {...todo, notes: write} : todo
+            })
+        )
         setIsOpenNote(false);
     };
 
