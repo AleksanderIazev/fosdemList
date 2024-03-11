@@ -1,6 +1,7 @@
+import { SortType } from '../../models/todo.model';
 import * as style from './filterTodoPanel.styles';
 
-function FilterTodoPanel({ filter, isSetFilter, todos }: any) {
+function FilterTodoPanel({ filter, isSetFilter, setSort }: any) {
     const activeFilter = filter;
 
     return (
@@ -10,6 +11,12 @@ function FilterTodoPanel({ filter, isSetFilter, todos }: any) {
                 onClick={() => isSetFilter('active')}
             >
                 Show Active tasks
+            </style.SFilterBtn>
+            <style.SFilterBtn
+                className={activeFilter === 'active' ? 'active' : ''}
+                onClick={() => setSort((prevSort: SortType) => prevSort === "asc" ? "desc" : "asc")}
+            >
+                Filter task for duration
             </style.SFilterBtn>
             <style.SFilterBtn
                 className={activeFilter === 'completed' ? 'active' : ''}

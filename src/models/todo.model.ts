@@ -1,4 +1,5 @@
-export type FilterType = 'completed' | 'active';
+export type FilterType = 'completed' | 'active' | 'asc' | 'desc';
+export type SortType = "asc" | "desc" | "none";
 
 export interface IAddTodoPanel {
     todos: ITodo[];

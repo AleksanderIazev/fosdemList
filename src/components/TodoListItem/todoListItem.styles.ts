@@ -1,6 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const STodoListItemWrapper = styled.div`
+const disappearAnimation = keyframes`
+    0% {
+        opacity: 100;
+    }
+
+    100% {
+        opacity: 0;
+    }
+`;
+
+export const STodoListItemWrapper = styled.div<{$disappear: boolean}>`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
@@ -12,6 +22,10 @@ export const STodoListItemWrapper = styled.div`
     border: 1px solid #efe6e6;
     border-radius: 10px;
     color: #efe6e6;
+    animation-name: ${({$disappear}) => $disappear ? disappearAnimation : ""};
+    animation-duration: 410ms;
+    animation-timing-function: linear;
+    animation-direction: infinite;
 `;
 
 export const STodoListItemCheck = styled.div`
