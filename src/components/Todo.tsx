@@ -1,29 +1,28 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as style from './todos.styles';
 import TodoList from './TodoList/TodoList';
 import FilterTodoPanel from './FilterTodoPanel/FilterTodoPanel';
 import { FilterType, ITodo } from '../models/todo.model';
 import DEFAULT_TODOS from '../data/DEFAULT_TODOS';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+
+type Filters<T> = Record<FilterType, (todos: T[]) => T[]>;
+
+const filters: Filters<ITodo> = {
+    "completed": (todos) => todos.filter(todo => todo.completed),
+    "active": (todos) => todos.filter(todo => !todo.completed)
+}
 
 function Todo() {
-    const [todos, setTodos] = useState<ITodo[]>(() => {
-        return localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")!) : DEFAULT_TODOS
-    });
+    const [storagedData, setStoragedData] = useLocalStorage('todos', DEFAULT_TODOS)
+    const [todos, setTodos] = useState<ITodo[]>(storagedData);
     const [filter, setFilter] = useState<FilterType>('active');
 
     useEffect(() => {
-        localStorage.setItem("todos", JSON.stringify(todos))
+        setStoragedData(todos);
     }, [todos])
 
-    function filteredTodo(todos: ITodo[], filter: FilterType) {
-        if (filter === 'completed') {
-            return todos.filter(todo => todo.completed);
-        }
-        if (filter === 'active') {
-            return todos.filter(todo => !todo.completed);
-        }
-        throw new Error('Filter error');
-    }
+    const filteredTodo = (todos: ITodo[], filter: FilterType) => filters[filter](todos);
 
     return (
         <style.STodosWrapper>

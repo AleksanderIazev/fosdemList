@@ -5,18 +5,12 @@ import * as style from './todoList.styles';
 function TodoList({ todos, isSetTodos }: TodoListProps) {
     return (
         <style.STodoListWrapper>
-            {todos.map(el => (
+            {todos.map(todo => (
                 <TodoListItem
-                    key={el.id}
-                    id={el.id}
-                    title={el.title}
-                    completed={el.completed}
+                    {...todo}
+                    key={todo.id}
                     todos={todos}
                     isSetTodos={isSetTodos}
-                    speaker={el.speaker}
-                    startTime={el.startTime}
-                    endTime={el.endTime}
-                    notes={el.notes}
                 />
             ))}
         </style.STodoListWrapper>
