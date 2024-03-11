@@ -27,7 +27,7 @@ const todos: Todos[] = [
         startTime: '09:30',
         endTime: '09:45',
         completed: false,
-        notes: 'G',
+        notes: '',
     },
     {
         id: uuidv4(),

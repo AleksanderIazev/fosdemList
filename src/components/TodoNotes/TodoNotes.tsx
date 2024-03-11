@@ -3,7 +3,7 @@ import { HiPencil } from 'react-icons/hi2';
 import * as style from './TodoNotes.styles';
 import { ITodo } from '../../models/todo.model';
 
-export const TodoNotes = ({ notes, id, isSetTodos }: { notes: string, isSetTodos: any, id: string }) => {
+export const TodoNotes = ({ notes, id, isSetTodos }: { notes: string; isSetTodos: any; id: string }) => {
     const [isOpenNote, setIsOpenNote] = useState(false);
     const [write, setWrite] = useState(notes);
 
@@ -16,16 +16,21 @@ export const TodoNotes = ({ notes, id, isSetTodos }: { notes: string, isSetTodos
     };
 
     const handleSaveNote = () => {
-        isSetTodos((prevTodos: ITodo[]) => 
-            prevTodos.map((todo) => {
-                return todo.id === id ? {...todo, notes: write} : todo
+        isSetTodos((prevTodos: ITodo[]) =>
+            prevTodos.map(todo => {
+                return todo.id === id ? { ...todo, notes: write } : todo;
             })
-        )
+        );
         setIsOpenNote(false);
     };
 
     const handleClear = () => {
         setWrite('');
+        isSetTodos((prevTodos: ITodo[]) =>
+            prevTodos.map(todo => {
+                return todo.id === id ? { ...todo, notes: '' } : todo;
+            })
+        );
         setIsOpenNote(false);
     };
 
