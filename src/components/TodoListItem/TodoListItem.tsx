@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { ITodoListItem } from '../../models/todo.model';
 import * as style from './todoListItem.styles';
 import { TodoNotes } from '../TodoNotes/TodoNotes';
 
 function TodoListItem({ id, title, isSetTodos, completed, speaker, startTime, endTime, notes }: ITodoListItem) {
-    const [checked, setChecked] = useState(completed);
 
     const handleCheckboxChange = () => {
         isSetTodos((prevTodos: ITodoListItem[]) => prevTodos.map(todo =>
@@ -17,7 +15,7 @@ function TodoListItem({ id, title, isSetTodos, completed, speaker, startTime, en
         <style.STodoListItemWrapper>
             <style.STodoListItemCheck>
                 <style.STodoListItemInputWrap>
-                    <input type='checkbox' checked={checked} onChange={handleCheckboxChange} />
+                    <input type='checkbox' checked={completed} onChange={handleCheckboxChange} />
                     <a style={{ color: 'white' }} href={title} target='_blank' rel='noopener noreferrer'>
                         {title}
                     </a>
