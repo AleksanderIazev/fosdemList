@@ -14,9 +14,9 @@ function FilterTodoPanel({ filter, isSetFilter, setSort }: any) {
             </style.SFilterBtn>
             <style.SFilterBtn
                 className={activeFilter === 'active' ? 'active' : ''}
-                onClick={() => setSort((prevSort: SortType) => prevSort === "asc" ? "desc" : "asc")}
+                onClick={() => setSort((prevSort: SortType) => (prevSort === 'asc' ? 'desc' : 'asc'))}
             >
-                Filter task for duration
+                Sort by duration
             </style.SFilterBtn>
             <style.SFilterBtn
                 className={activeFilter === 'completed' ? 'active' : ''}
